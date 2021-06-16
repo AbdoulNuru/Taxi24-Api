@@ -1,23 +1,15 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Driver extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+  const Driver = sequelize.define(
+    "Driver",
+    {
+      id: { type: DataTypes.STRING, primaryKey: true },
+      currentLocationCoordinates: DataTypes.STRING,
+      isBooked: DataTypes.STRING,
+    },
+    {}
+  );
+  Driver.associate = () => {
+    // associations can be defined here
   };
-  Driver.init({
-    firstName: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Driver',
-  });
   return Driver;
 };
