@@ -61,12 +61,54 @@ describe("Taxi24", () => {
 
   it("should get a driver by id", (done) => {
     Chai.request(app)
-      .get("/get-drivers/d01cf3f2-4601-4b53-8ffd-fd46b5ded623")
+      .get("/get-drivers/a2c67bc0-8831-460f-80d8-29c32dd6b56f")
       .end((err, res) => {
         expect(res.body.status).to.be.equal(200);
         expect(res.body).to.have.keys("message", "driver", "status");
         expect(res.body.message).to.be.equal(
           "The driver informations were retrieved"
+        );
+        expect(res);
+        done();
+      });
+  });
+
+  it("should get all the riders", (done) => {
+    Chai.request(app)
+      .get("/get-riders")
+      .end((err, res) => {
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body).to.have.keys("message", "riders", "status");
+        expect(res.body.message).to.be.equal(
+          "All Riders have been retrieved successfully"
+        );
+        expect(res);
+        done();
+      });
+  });
+
+  it("should get a rider by id", (done) => {
+    Chai.request(app)
+      .get("/get-riders/3f9ea596-6c69-4f09-9f71-2395d29b0fba")
+      .end((err, res) => {
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body).to.have.keys("message", "rider", "status");
+        expect(res.body.message).to.be.equal(
+          "The driver informations were retrieved"
+        );
+        expect(res);
+        done();
+      });
+  });
+
+  it("should get all active trips", (done) => {
+    Chai.request(app)
+      .get("/get-trips")
+      .end((err, res) => {
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body).to.have.keys("message", "trips", "status");
+        expect(res.body.message).to.be.equal(
+          "All active trips have been retrieved successfully"
         );
         expect(res);
         done();

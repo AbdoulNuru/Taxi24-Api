@@ -1,7 +1,8 @@
 import { Op } from "sequelize";
+import Distance from "geo-distance";
 import Models from "../database/models";
 
-const { Driver } = Models;
+const { Users } = Models;
 
 /**
  *
@@ -13,9 +14,11 @@ const { Driver } = Models;
  */
 const GetAllDrivers = async (req, res) => {
   try {
-    const allDrivers = await Driver.findAll();
+    const allDrivers = await Users.findAll({
+      where: { role: { [Op.eq]: "driver" } },
+    });
 
-    if (!allDrivers) {
+    if (allDrivers.length === 0) {
       return res.status(200).json({
         status: 200,
         message: "No Drivers records were found",
@@ -44,11 +47,14 @@ const GetAllDrivers = async (req, res) => {
  */
 const GetAvailableDrivers = async (req, res) => {
   try {
-    const availableDrivers = await Driver.findAll({
-      where: { [Op.not]: [{ isBooked: "No" }] },
+    const availableDrivers = await Users.findAll({
+      where: {
+        role: { [Op.eq]: "driver" },
+        [Op.not]: [{ status: "booked" }],
+      },
     });
 
-    if (!availableDrivers) {
+    if (availableDrivers.length === 0) {
       return res.status(200).json({
         status: 200,
         message: "No available Drivers at the moment",
@@ -67,6 +73,60 @@ const GetAvailableDrivers = async (req, res) => {
   }
 };
 
+const GetNearestDrivers = async (req, res) => {
+  try {
+    const { id } = req.headers,
+      rider = Users.findOne({ where: { id } }),
+      riderCoordinates = {
+        lat: rider.latitude,
+        lon: rider.longitude,
+      },
+      drivers = await Users.findAll({
+        where: {
+          role: { [Op.eq]: "driver" },
+          [Op.not]: [{ status: "booked" }],
+        },
+      });
+
+    if (drivers) {
+      const availableDrivers = drivers.map(async (driver) => {
+        const driverLocation = await Users.findOne({
+            where: { id: driver.id },
+          }),
+          driverCoordinates = {
+            lat: driverLocation.latitude,
+            lon: driverLocation.longitude,
+          },
+          nearestDrivers = Distance.between(
+            driverCoordinates,
+            riderCoordinates
+          );
+
+        if (nearestDrivers < Distance("3 km")) {
+          return driver.dataValues;
+        }
+      });
+
+      if (availableDrivers.length === 0) {
+        return res.status(200).json({
+          status: 200,
+          message: "No available Drivers near you at the moment",
+        });
+      }
+
+      return res.status(200).json({
+        status: 200,
+        message: "Available drivers within 3km from your location",
+        drivers: availableDrivers,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      error: "There was an internal server error",
+    });
+  }
+};
+
 /**
  *
  * @author Abdou Nuru
@@ -77,8 +137,8 @@ const GetAvailableDrivers = async (req, res) => {
  */
 const GetDriverById = async (req, res) => {
   try {
-    const { id } = req.body,
-      driver = await Driver.findOne({ where: id });
+    const { id } = req.params,
+      driver = await Users.findOne({ where: { id } });
 
     if (!driver) {
       return res.status(404).json({
@@ -99,4 +159,9 @@ const GetDriverById = async (req, res) => {
   }
 };
 
-export default { GetAllDrivers, GetAvailableDrivers, GetDriverById };
+export default {
+  GetAllDrivers,
+  GetAvailableDrivers,
+  GetNearestDrivers,
+  GetDriverById,
+};
