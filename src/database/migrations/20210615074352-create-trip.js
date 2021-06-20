@@ -6,13 +6,39 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING,
       },
+      driverId: {
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
+      riderId: {
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
+      from: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      to: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       startTime: {
         type: Sequelize.DATE,
         allowNull: false,
       },
       endTime: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       isActive: {
         type: Sequelize.STRING,

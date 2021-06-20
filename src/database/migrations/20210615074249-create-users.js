@@ -18,9 +18,25 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      dob: {
-        type: Sequelize.DATE,
+      email: {
+        type: Sequelize.STRING,
         allowNull: false,
+      },
+      role: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      latitude: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      longitude: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      status: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

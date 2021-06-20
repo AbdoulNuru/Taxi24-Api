@@ -1,6 +1,6 @@
 # Taxi24
 
-[![Build Status](https://travis-ci.org/AbdoulNuru/Taxi24-Api.svg?branch=develop)](https://travis-ci.org/AbdoulNuru/Taxi24-Api) [![Maintainability](https://api.codeclimate.com/v1/badges/05278fe7eab91c23c9be/maintainability)](https://codeclimate.com/github/AbdoulNuru/Taxi24-Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/AbdoulNuru/Taxi24-Api/badge.svg?branch=develop)](https://coveralls.io/github/AbdoulNuru/Taxi24-Api?branch=develop)
+[![Build Status](https://travis-ci.org/AbdoulNuru/Taxi24-Api.svg?branch=develop)](https://travis-ci.org/AbdoulNuru/Taxi24-Api) [![Maintainability](https://api.codeclimate.com/v1/badges/05278fe7eab91c23c9be/maintainability)](https://codeclimate.com/github/AbdoulNuru/Taxi24-Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/AbdoulNuru/Taxi24-Api/badge.svg?branch=ft-setup-database)](https://coveralls.io/github/AbdoulNuru/Taxi24-Api?branch=ft-setup-database)
 
 ## Description
 
@@ -57,12 +57,12 @@ and allocate drivers to passengers.
   | -------------- | ------- | ----------- |
   | /get-drivers | GET | Get a list of all drivers |
   | /get-available-drivers | GET | Get a list of all available drivers |
-  | /get-near-drivers | GET | Get a list of all available drivers within 3km for a
+  | /get-nearest-drivers | GET | Get a list of all available drivers within 3km for a
   specific location |
   | /get-drivers/:id | GET | Get a specific driver by ID |
   | /get-riders | GET | Get a list of all riders |
   | /get-riders/:id | GET | Get a specific rider by ID |
-  | /get-nearest-drivers | GET | For a specific driver, get a list of the 3 closest drivers|
+  | /get-near-drivers | GET | For a specific driver, get a list of the 3 closest drivers|
   | /trip | POST | Create a new ‘Trip’ request by assigning a driver to a rider |
   | /trip-complete | POST | Complete a trip |
   | /get-active-trips | GET | Get a list of all active Trips |

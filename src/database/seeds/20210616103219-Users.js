@@ -1,24 +1,84 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-  },
-
-  down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  up: (queryInterface) =>
+    queryInterface.bulkInsert("Users", [
+      {
+        id: "27b7327e-e093-4ce5-b2a6-8f1caa1a44e9",
+        firstName: "Nuru",
+        lastName: "Abdoul",
+        gender: "male",
+        email: "test1@gmail.com",
+        role: "driver",
+        status: "available",
+        latitude: "-1.9465640252799719",
+        longitude: "30.059581363719342",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "a2c67bc0-8831-460f-80d8-29c32dd6b56f",
+        firstName: "Seth",
+        lastName: "Abayo",
+        gender: "male",
+        email: "test2@gmail.com",
+        role: "driver",
+        status: "available",
+        latitude: "1.94655074206449",
+        longitude: "30.060122933232066",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "c725042e-e49b-4592-8a09-e3e90f5d2ec2",
+        firstName: "Nelson",
+        lastName: "Ishimwe",
+        gender: "male",
+        email: "test3@gmail.com",
+        role: "driver",
+        status: "available",
+        latitude: "-1.9549245149322587",
+        longitude: "30.103577630751225",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "d61a4a20-2ed2-46c1-968d-f2804d3482e6",
+        firstName: "Djasmin",
+        lastName: "Uwase",
+        gender: "female",
+        email: "test4@gmail.com",
+        role: "rider",
+        status: "",
+        latitude: "-1.9479556911459428",
+        longitude: "30.059708170377363",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "3f9ea596-6c69-4f09-9f71-2395d29b0fba",
+        firstName: "Zawadi",
+        lastName: "Umutoni",
+        gender: "female",
+        email: "test5@gmail.com",
+        role: "rider",
+        status: "",
+        latitude: "-1.9591478985716992",
+        longitude: "30.107996726200376",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "e52fdf30-0623-4840-8df1-14abc9a641b2",
+        firstName: "Beaudry",
+        lastName: "Ivan",
+        gender: "male",
+        email: "test6@gmail.com",
+        role: "rider",
+        status: "",
+        latitude: "-1.9496002402028068",
+        longitude: "30.06107908571927",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]),
+  down: (queryInterface) => queryInterface.bulkDelete("Users", null, {}),
 };
